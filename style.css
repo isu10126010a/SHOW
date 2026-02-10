@@ -1,119 +1,59 @@
 :root {
-    --calico-orange: #FFB366;
-    --calico-black: #4A342E;
-    --calico-cream: #FFF9F2;
-    --calico-white: #FFFFFF;
+    --orange: #FFB366; --brown: #4A342E; --cream: #FFF9F2;
 }
 
-* { box-sizing: border-box; font-family: 'Zen Maru Gothic', sans-serif; }
+* { box-sizing: border-box; font-family: 'Zen Maru Gothic', sans-serif; -webkit-tap-highlight-color: transparent; }
 
-body { 
-    background-color: var(--calico-cream); 
-    color: var(--calico-black); 
-    margin: 0; 
-    padding-bottom: 120px; 
-    display: flex; 
-    justify-content: center;
-    position: relative;
-    overflow-x: hidden;
-}
+body { background-color: var(--cream); color: var(--brown); margin: 0; padding-bottom: 120px; overflow-x: hidden; }
 
-/* 背景貓咪群 - 變清楚了！ */
-.bg-decorations {
-    position: fixed;
-    top: 0; left: 0; width: 100%; height: 100%;
-    z-index: -1;
-    pointer-events: none;
-}
-.cat-icon {
-    position: absolute;
-    font-size: 2.5rem;
-    opacity: 0.25; /* 提高不透明度，讓牠變清楚 */
-    filter: grayscale(0.2);
-}
-.c1 { top: 5%; left: 5%; transform: rotate(-15deg); }
-.c2 { top: 20%; right: -10px; font-size: 3.5rem; color: var(--calico-orange); }
-.c3 { bottom: 25%; left: -15px; font-size: 3rem; }
-.c4 { top: 50%; right: 10%; opacity: 0.15; }
-.c5 { bottom: 10%; right: 5%; transform: rotate(10deg); }
-.c6 { top: 35%; left: 10%; opacity: 0.2; }
+.container { width: 100%; max-width: 450px; margin: 0 auto; padding: 15px; }
 
-.container { width: 100%; max-width: 450px; padding: 20px; position: relative; }
+/* 背景貓咪：變清楚、分佈均勻 */
+.bg-cats { position: fixed; top:0; left:0; width:100%; height:100%; z-index: -1; pointer-events: none; }
+.b-cat { position: absolute; font-size: 2rem; opacity: 0.2; }
+.b-cat:nth-child(1) { top: 5%; left: 5%; }
+.b-cat:nth-child(2) { top: 25%; right: 5%; }
+.b-cat:nth-child(3) { bottom: 30%; left: 8%; }
+.b-cat:nth-child(4) { top: 50%; right: 10%; }
+.b-cat:nth-child(5) { bottom: 10%; right: 5%; }
+.b-cat:nth-child(6) { top: 40%; left: 15%; }
 
-header { text-align: center; margin-bottom: 15px; }
-.main-logo { width: 85px; height: 85px; border-radius: 50%; border: 4px solid white; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+/* Header */
+header { text-align: center; margin-bottom: 20px; }
+.main-logo { width: 80px; height: 80px; border-radius: 50%; border: 3px solid white; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+h1 { font-size: 1.5rem; margin: 10px 0 0; }
+.slogan { color: var(--orange); font-size: 0.8rem; font-weight: bold; }
 
-h1 { font-size: 1.6rem; margin: 10px 0 0; font-weight: 700; color: var(--calico-black); }
-.slogan { color: var(--calico-orange); font-size: 0.85rem; font-weight: bold; margin-bottom: 20px; }
+/* 拍立得照片強制縮小 */
+.mascot-wrap { display: flex; justify-content: center; margin-bottom: 20px; }
+.polaroid { 
+    background: white; padding: 10px 10px 25px 10px; width: 220px; 
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1); transform: rotate(-2deg); border-radius: 2px;
+}
+.img-container { width: 100%; height: 160px; overflow: hidden; border-radius: 2px; }
+.img-container img { width: 100%; height: 100%; object-fit: cover; }
+.polaroid p { text-align: center; margin: 10px 0 0; font-size: 0.85rem; font-weight: bold; color: #666; }
 
-/* 修正照片大小：變身拍立得 */
-.mascot-section {
-    display: flex;
-    justify-content: center;
-    margin-bottom: 30px;
-}
-.polaroid {
-    background: white;
-    padding: 12px 12px 35px 12px;
-    border-radius: 4px;
-    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
-    width: 280px; /* 固定寬度，不讓它爆開 */
-    transform: rotate(-2deg);
-    border: 1px solid #eee;
-}
-.shop-cat {
-    width: 100%;
-    height: 200px; /* 固定高度 */
-    object-fit: cover; /* 裁切合適範圍 */
-    border-radius: 2px;
-}
-.caption {
-    text-align: center;
-    font-size: 0.95rem;
-    margin-top: 15px;
-    font-weight: bold;
-    color: #555;
-    letter-spacing: 1px;
-}
+/* 卡片與按鈕 */
+.section-card { background: white; border-radius: 20px; padding: 15px; margin-bottom: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); }
+.section-title { font-size: 1rem; border-left: 5px solid var(--orange); padding-left: 10px; margin-bottom: 15px; }
 
-/* 內容區塊 */
-.price-section { 
-    background: rgba(255, 255, 255, 0.9); /* 帶一點點透明，看得到背景貓咪 */
-    border-radius: 25px; padding: 18px; margin-bottom: 20px; 
-    box-shadow: 0 8px 20px rgba(0,0,0,0.05);
-    border: 2px solid white;
-}
-.section-title { font-size: 1.15rem; margin-bottom: 15px; border-left: 6px solid var(--calico-orange); padding-left: 12px; font-weight: 700; }
+.item { display: flex; justify-content: space-between; align-items: center; padding: 10px; border-bottom: 1px solid #f9f9f9; }
+.item-info b { display: block; font-size: 0.95rem; }
+.item-info span { font-size: 0.8rem; color: #999; }
 
-.item-card {
-    display: flex; justify-content: space-between; align-items: center;
-    padding: 12px 15px; background: #fffdfa; border: 2px solid var(--soft-gray);
-    border-radius: 20px; margin-bottom: 10px;
-}
-.item-card.active { border-color: var(--calico-orange); background: #fff9f2; }
+.stepper { display: flex; align-items: center; gap: 10px; }
+.btn-s { width: 32px; height: 32px; border-radius: 50%; border: none; background: var(--orange); color: white; font-size: 1.2rem; cursor: pointer; }
+.btn-s:disabled { background: #eee; color: #ccc; }
+.num { font-weight: bold; min-width: 20px; text-align: center; }
 
-/* 步進器按鈕 */
-.stepper { display: flex; align-items: center; gap: 12px; }
-.step-btn {
-    width: 38px; height: 38px; border-radius: 50%; border: none;
-    background: var(--calico-orange); color: white; font-size: 1.5rem;
-    cursor: pointer; display: flex; align-items: center; justify-content: center;
-    box-shadow: 0 3px 6px rgba(255, 179, 102, 0.3);
-}
-.step-btn:disabled { background: #eee; color: #aaa; box-shadow: none; }
-.step-num { font-weight: bold; width: 24px; text-align: center; font-size: 1.2rem; }
+/* 管理員模式 */
+.admin-btn { width: 100%; padding: 10px; border-radius: 15px; border: 2px dashed var(--brown); background: white; margin-bottom: 15px; cursor: pointer; font-weight: bold; }
+.edit-row { display: flex; gap: 5px; width: 100%; margin-bottom: 5px; }
+.edit-row input { padding: 8px; border-radius: 8px; border: 1px solid #ddd; font-size: 0.9rem; }
+.btn-del { background: #ffeded; color: #ff5252; border: none; border-radius: 8px; padding: 0 10px; }
 
 /* 底部欄 */
-.footer-bar {
-    position: fixed; bottom: 0; width: 100%; max-width: 450px;
-    background: var(--calico-black); color: white; padding: 18px 25px;
-    display: flex; justify-content: space-between; align-items: center;
-    border-radius: 30px 30px 0 0; z-index: 100;
-}
-#total-price { font-size: 2.2rem; color: var(--calico-orange); font-weight: bold; }
-
-.cute-btn { 
-    background: white; border: 2px solid var(--calico-black); padding: 10px; 
-    border-radius: 20px; cursor: pointer; font-weight: bold; margin-bottom: 20px; width: 100%; 
-}
-.reset-btn { background: #555; color: white; border: none; padding: 8px 15px; border-radius: 15px; cursor: pointer; }
+.bottom-bar { position: fixed; bottom: 0; width: 100%; max-width: 450px; background: var(--brown); color: white; padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; border-radius: 20px 20px 0 0; }
+#total-price { font-size: 1.8rem; color: var(--orange); font-weight: bold; margin-left: 10px; }
+.reset-btn { background: #666; border: none; color: white; padding: 8px 15px; border-radius: 10px; }
