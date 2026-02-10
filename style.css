@@ -2,12 +2,12 @@
     --calico-orange: #FFB366;
     --calico-black: #4A342E;
     --calico-cream: #FFF9F2;
-    --soft-gray: #f0f0f0;
+    --soft-gray: #f2f2f2;
 }
 
 * { box-sizing: border-box; font-family: 'Zen Maru Gothic', sans-serif; }
 
-body { background-color: var(--calico-cream); color: var(--calico-black); margin: 0; padding-bottom: 110px; display: flex; justify-content: center; }
+body { background-color: var(--calico-cream); color: var(--calico-black); margin: 0; padding-bottom: 110px; display: flex; justify-content: center; overflow-x: hidden; }
 
 .container { width: 100%; max-width: 480px; padding: 20px; }
 
@@ -18,41 +18,42 @@ h1 { font-size: 1.6rem; margin: 10px 0 0; }
 .slogan { color: var(--calico-orange); font-size: 0.85rem; font-weight: bold; }
 
 .price-section { background: white; border-radius: 25px; padding: 15px; margin-bottom: 20px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); }
-.section-title { font-size: 1.1rem; margin-bottom: 12px; border-left: 5px solid var(--calico-orange); padding-left: 10px; }
+.section-title { font-size: 1.1rem; margin-bottom: 12px; border-left: 5px solid var(--calico-orange); padding-left: 10px; font-weight: 700; }
 
 .item-card {
     display: flex; justify-content: space-between; align-items: center;
     padding: 12px 15px; background: #fffdfa; border: 2px solid var(--soft-gray);
-    border-radius: 18px; margin-bottom: 8px; transition: 0.2s;
+    border-radius: 20px; margin-bottom: 8px; transition: 0.2s;
 }
 
-.item-card.selected { border-color: var(--calico-orange); background: #fff4e6; }
+.item-card.active { border-color: var(--calico-orange); background: #fff9f0; }
 
-/* 數字選擇器 (Stepper) */
-.stepper { display: flex; align-items: center; gap: 10px; }
+/* 數字選擇器 */
+.stepper { display: flex; align-items: center; gap: 12px; }
 .step-btn {
-    width: 32px; height: 32px; border-radius: 50%; border: none;
-    background: var(--calico-orange); color: white; font-size: 1.2rem;
+    width: 35px; height: 35px; border-radius: 50%; border: none;
+    background: var(--calico-orange); color: white; font-size: 1.4rem;
     cursor: pointer; display: flex; align-items: center; justify-content: center;
-    transition: 0.2s;
+    box-shadow: 0 2px 5px rgba(255, 179, 102, 0.4);
 }
-.step-btn:active { transform: scale(0.9); }
-.step-btn:disabled { background: #ccc; cursor: not-allowed; }
-.step-num { font-weight: bold; width: 20px; text-align: center; font-size: 1.1rem; }
+.step-btn:active { transform: scale(0.85); background: var(--calico-black); }
+.step-btn:disabled { background: #eee; color: #aaa; box-shadow: none; cursor: not-allowed; }
+.step-num { font-weight: bold; width: 22px; text-align: center; font-size: 1.2rem; color: var(--calico-black); }
 
-/* 編輯模式輸入框 */
-.edit-input { width: 55%; padding: 5px; border-radius: 8px; border: 1px solid #ddd; font-size: 0.9rem; }
-.edit-price { width: 30%; padding: 5px; border-radius: 8px; border: 1px solid #ddd; font-size: 0.9rem; }
+/* 編輯輸入框 */
+.edit-input { width: 55%; padding: 6px; border-radius: 10px; border: 1px solid #ddd; }
+.edit-price { width: 30%; padding: 6px; border-radius: 10px; border: 1px solid #ddd; }
 
 .footer-bar {
     position: fixed; bottom: 0; width: 100%; max-width: 480px;
     background: var(--calico-black); color: white; padding: 20px;
     display: flex; justify-content: space-between; align-items: center;
-    border-radius: 25px 25px 0 0;
+    border-radius: 30px 30px 0 0; z-index: 100;
 }
-#total-price { font-size: 2rem; color: var(--calico-orange); font-weight: bold; }
+#total-price { font-size: 2.2rem; color: var(--calico-orange); font-weight: bold; }
 
-.cute-btn { background: white; border: 2px solid var(--calico-black); padding: 8px 15px; border-radius: 20px; cursor: pointer; font-weight: bold; margin-bottom: 10px; }
-.reset-btn { background: transparent; color: white; border: 1px solid #888; padding: 8px 15px; border-radius: 15px; cursor: pointer; }
+.cute-btn { background: white; border: 2px solid var(--calico-black); padding: 8px 18px; border-radius: 20px; cursor: pointer; font-weight: bold; margin-bottom: 10px; font-family: inherit; }
+.reset-btn { background: rgba(255,255,255,0.1); color: white; border: 1px solid #666; padding: 8px 15px; border-radius: 15px; cursor: pointer; font-family: inherit; }
 
 .cat-bg { position: fixed; font-size: 5rem; bottom: 80px; left: -20px; opacity: 0.1; z-index: -1; }
+.cat-bg2 { position: fixed; font-size: 3rem; top: 120px; right: -10px; opacity: 0.1; z-index: -1; transform: rotate(15deg); }
