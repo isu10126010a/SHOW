@@ -3,47 +3,59 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>秀 your nails | 專屬計價</title>
-    <!-- 引入更可愛且支援中文的 Google 字體 -->
-    <link href="https://fonts.googleapis.com/css2?family=Zhi+Mang+Xing&family=Noto+Sans+TC:wght@400;700&family=Mochiiy+Pop+One&display=swap" rel="stylesheet">
+    <title>秀 your nails | 圓滾滾計價</title>
+    <!-- 引入超可愛的圓體字 -->
+    <link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="container">
         <header>
-            <div class="logo-wrapper">
-                <img src="logo.jpg" alt="秀 your nails Logo" class="logo">
-                <span class="cat-ear-l"></span>
-                <span class="cat-ear-r"></span>
+            <div class="logo-area">
+                <img src="logo.jpg" alt="Logo" class="main-logo">
             </div>
             <h1>秀 your nails 🐾</h1>
-            <p class="subtitle">讓指尖像貓咪一樣迷人 ✨</p>
+            <p class="slogan">讓指尖像三花貓一樣可愛</p>
         </header>
 
-        <main>
-            <div class="calculator-card">
-                <div class="card-header">
-                    <h2>🐾 服務清單</h2>
-                    <button id="edit-btn">⚙️ 編輯價格</button>
-                </div>
-                
-                <div id="price-list">
-                    <!-- JS 生成內容 -->
-                </div>
+        <!-- 管理員按鈕 -->
+        <div class="admin-controls">
+            <button id="edit-mode-btn" class="cute-btn">🐾 進入/退出修改模式</button>
+        </div>
 
-                <div class="total-section">
-                    <p>今日預算總計</p>
-                    <div id="total-price">$0</div>
-                    <button id="reset-btn">全部清空 🧹</button>
-                </div>
-            </div>
+        <main id="app">
+            <!-- 區域一：基礎美甲 -->
+            <section class="price-section">
+                <h2 class="section-title">🧡 基礎美甲區</h2>
+                <div id="basic-list" class="item-list"></div>
+            </section>
+
+            <!-- 區域二：造型設計 -->
+            <section class="price-section">
+                <h2 class="section-title">🤍 造型設計區</h2>
+                <div id="design-list" class="item-list"></div>
+            </section>
+
+            <!-- 區域三：加價專區 -->
+            <section class="price-section addon-section">
+                <h2 class="section-title">🖤 加價專區</h2>
+                <div id="addon-list" class="item-list"></div>
+            </section>
         </main>
 
-        <!-- 三花貓裝飾 (Emoji + 顏色) -->
-        <div class="cat-decoration decoration-1">🐈</div>
-        <div class="cat-decoration decoration-2">🐾</div>
-        <div class="cat-decoration decoration-3">🧶</div>
+        <!-- 底部結帳欄 -->
+        <footer class="footer-bar">
+            <div class="total-info">
+                <span>目前選計：</span>
+                <span id="total-price">$0</span>
+            </div>
+            <button id="clear-btn" class="reset-btn">清空 🧹</button>
+        </footer>
     </div>
+
+    <!-- 背景裝飾貓貓 -->
+    <div class="cat-bg">🐈</div>
+    <div class="cat-bg2">🐾</div>
 
     <script src="script.js"></script>
 </body>

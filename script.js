@@ -1,78 +1,93 @@
-let defaultItems = [
-    { name: "單色光療", price: 800 },
-    { name: "法式設計", price: 1200 },
-    { name: "精緻卸甲", price: 300 },
-    { name: "保養護理", price: 500 }
-];
+// 初始資料
+const defaultData = {
+    basic: [
+        { name: "手部單色", price: 800 },
+        { name: "足部單色", price: 1000 },
+        { name: "手部貓眼", price: 900 },
+        { name: "足部貓眼", price: 1100 },
+        { name: "法式指甲", price: 1200 }
+    ],
+    design: [
+        { name: "暈染設計", price: 1500 },
+        { name: "手繪花磚", price: 1800 },
+        { name: "立體排鑽", price: 1600 },
+        { name: "鏡面粉造型", price: 1400 },
+        { name: "幾何線條", price: 1300 }
+    ],
+    addon: [
+        { name: "精緻卸甲", price: 300 },
+        { name: "他店卸甲", price: 500 },
+        { name: "延甲/指", price: 150 },
+        { name: "加厚健甲", price: 200 },
+        { name: "甘皮深層保養", price: 400 }
+    ]
+};
 
-let items = JSON.parse(localStorage.getItem('nailPrices')) || defaultItems;
-let selectedItems = new Set();
+// 從儲存空間載入或使用預設
+let nailData = JSON.parse(localStorage.getItem('nailData_v3')) || defaultData;
+let selectedItems = { basic: [], design: [], addon: [] };
 let isEditMode = false;
 
-const priceList = document.getElementById('price-list');
-const totalDisplay = document.getElementById('total-price');
-const editBtn = document.getElementById('edit-btn');
-
 function render() {
-    priceList.innerHTML = '';
-    let total = 0;
+    renderSection('basic-list', 'basic');
+    renderSection('design-list', 'design');
+    renderSection('addon-list', 'addon');
+    calcTotal();
+}
 
-    items.forEach((item, index) => {
+function renderSection(elementId, sectionKey) {
+    const listEl = document.getElementById(elementId);
+    listEl.innerHTML = '';
+
+    nailData[sectionKey].forEach((item, index) => {
         const div = document.createElement('div');
-        div.className = `price-item ${selectedItems.has(index) ? 'selected' : ''}`;
+        const isSelected = selectedItems[sectionKey].includes(index);
+        div.className = `item-card ${isSelected ? 'selected' : ''}`;
 
         if (isEditMode) {
             div.innerHTML = `
-                <input type="text" style="width:50%" value="${item.name}" onchange="updateItem(${index}, 'name', this.value)">
-                <input type="number" style="width:25%" value="${item.price}" onchange="updateItem(${index}, 'price', this.value)">
-                <button onclick="removeItem(${index})">❌</button>
+                <input type="text" value="${item.name}" onchange="updateData('${sectionKey}', ${index}, 'name', this.value)">
+                <input type="number" value="${item.price}" onchange="updateData('${sectionKey}', ${index}, 'price', this.value)">
             `;
         } else {
             div.innerHTML = `<span>🐾 ${item.name}</span><span>$${item.price}</span>`;
-            div.onclick = () => {
-                if(selectedItems.has(index)) selectedItems.delete(index);
-                else selectedItems.add(index);
-                render();
-            };
+            div.onclick = () => toggleSelect(sectionKey, index);
         }
-        priceList.appendChild(div);
-        if (selectedItems.has(index)) total += Number(item.price);
+        listEl.appendChild(div);
     });
-
-    if (isEditMode) {
-        const addBtn = document.createElement('button');
-        addBtn.innerText = "+ 新增服務品項";
-        addBtn.style = "width:100%; padding:10px; margin-top:10px; background:#ddd; border:none; border-radius:10px;";
-        addBtn.onclick = () => { items.push({name:"新服務", price:0}); render(); };
-        priceList.appendChild(addBtn);
-    }
-    totalDisplay.innerText = `$${total}`;
 }
 
-function updateItem(index, key, value) {
-    items[index][key] = value;
-    save();
-}
-
-function removeItem(index) {
-    items.splice(index, 1);
-    save();
+function toggleSelect(section, index) {
+    const idx = selectedItems[section].indexOf(index);
+    if (idx > -1) selectedItems[section].splice(idx, 1);
+    else selectedItems[section].push(index);
     render();
 }
 
-function save() {
-    localStorage.setItem('nailPrices', JSON.stringify(items));
+function updateData(section, index, key, value) {
+    nailData[section][index][key] = (key === 'price') ? Number(value) : value;
+    localStorage.setItem('nailData_v3', JSON.stringify(nailData));
 }
 
-editBtn.onclick = () => {
+function calcTotal() {
+    let total = 0;
+    ['basic', 'design', 'addon'].forEach(sec => {
+        selectedItems[sec].forEach(idx => {
+            total += nailData[sec][idx].price;
+        });
+    });
+    document.getElementById('total-price').innerText = `$${total}`;
+}
+
+// 切換編輯模式
+document.getElementById('edit-mode-btn').onclick = () => {
     isEditMode = !isEditMode;
-    editBtn.innerText = isEditMode ? "✅ 儲存修改" : "⚙️ 編輯價格";
-    if (!isEditMode) render();
-    else render();
+    render();
 };
 
-document.getElementById('reset-btn').onclick = () => {
-    selectedItems.clear();
+// 清空選擇
+document.getElementById('clear-btn').onclick = () => {
+    selectedItems = { basic: [], design: [], addon: [] };
     render();
 };
 
