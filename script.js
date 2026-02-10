@@ -1,122 +1,122 @@
-// 初始化資料
-const defaultData = [
-    { id: 'b', title: '🧡 基礎美甲區', items: [
-        { name: "手部單色", price: 800 }, { name: "手部貓眼", price: 1000 }, { name: "卸甲重做", price: 200 }
-    ]},
-    { id: 'd', title: '🤍 造型設計區', items: [
-        { name: "彩繪/指", price: 100 }, { name: "排鑽/指", price: 50 }, { name: "暈染/指", price: 120 }
-    ]},
-    { id: 'a', title: '🖤 加價專區', items: [
-        { name: "延甲/指", price: 150 }, { name: "加厚健甲", price: 200 }, { name: "他店卸甲", price: 500 }
-    ]}
-];
+const defaultData = {
+    basic: [
+        { name: "手部單色", price: 800 },
+        { name: "手部貓眼", price: 1000 },
+        { name: "卸甲重做", price: 200 },
+        { name: "足部單色", price: 1100 },
+        { name: "足部貓眼", price: 1300 }
+    ],
+    design: [
+        { name: "精緻彩繪/指", price: 100 },
+        { name: "立體排鑽/指", price: 50 },
+        { name: "鏡面造型/指", price: 80 },
+        { name: "暈染設計/指", price: 120 },
+        { name: "亮片夾層/指", price: 60 }
+    ],
+    addon: [
+        { name: "延甲/指", price: 150 },
+        { name: "加厚健甲", price: 200 },
+        { name: "他店卸甲", price: 500 },
+        { name: "甘皮保養", price: 400 },
+        { name: "補鑽服務", price: 50 }
+    ]
+};
 
-// 讀取資料
-let nailData = JSON.parse(localStorage.getItem('nailData_Final_Fixed')) || defaultData;
+// 使用新版本號確保清除舊快取
+let nailData = JSON.parse(localStorage.getItem('nailData_final')) || defaultData;
 let isEditMode = false;
-let counts = {}; // 用來存數量的物件 e.g., {"手部單色": 1}
+
+// 儲存各項目的數量
+let quantities = {
+    basic: new Array(nailData.basic.length).fill(0),
+    design: new Array(nailData.design.length).fill(0),
+    addon: new Array(nailData.addon.length).fill(0)
+};
 
 function render() {
-    const app = document.getElementById('main-app');
-    app.innerHTML = '';
+    // 明確將三區都用同一套 renderSection 處理
+    renderSection('basic-list', 'basic');
+    renderSection('design-list', 'design');
+    renderSection('addon-list', 'addon');
+    calcTotal();
+}
 
-    nailData.forEach((section, sIdx) => {
-        const secDiv = document.createElement('div');
-        secDiv.className = 'section-card';
-        secDiv.innerHTML = `<h2 class="section-title">${section.title}</h2>`;
+function renderSection(elementId, sectionKey) {
+    const listEl = document.getElementById(elementId);
+    listEl.innerHTML = '';
 
-        section.items.forEach((item, iIdx) => {
-            const row = document.createElement('div');
-            row.className = 'item';
-            
-            if (isEditMode) {
-                // 修改模式
-                row.innerHTML = `
-                    <div class="edit-row">
-                        <input type="text" style="flex:2" value="${item.name}" onchange="updateItem(${sIdx}, ${iIdx}, 'name', this.value)">
-                        <input type="number" style="flex:1" value="${item.price}" onchange="updateItem(${sIdx}, ${iIdx}, 'price', this.value)">
-                        <button class="btn-del" onclick="deleteItem(${sIdx}, ${iIdx})">✕</button>
-                    </div>
-                `;
-            } else {
-                // 計價模式
-                const currentCount = counts[item.name] || 0;
-                row.innerHTML = `
-                    <div class="item-info">
-                        <b>🐾 ${item.name}</b>
-                        <span>$${item.price}</span>
-                    </div>
-                    <div class="stepper">
-                        <button class="btn-s" onclick="updateCount('${item.name}', -1)" ${currentCount<=0?'disabled':''}>-</button>
-                        <span class="num">${currentCount}</span>
-                        <button class="btn-s" onclick="updateCount('${item.name}', 1)" ${currentCount>=10?'disabled':''}>+</button>
-                    </div>
-                `;
-            }
-            secDiv.appendChild(row);
-        });
+    nailData[sectionKey].forEach((item, index) => {
+        const div = document.createElement('div');
+        // 確保數量存在，否則給 0
+        const count = (quantities[sectionKey][index] === undefined) ? 0 : quantities[sectionKey][index];
+        
+        div.className = `item-card ${count > 0 ? 'active' : ''}`;
 
         if (isEditMode) {
-            const addBtn = document.createElement('button');
-            addBtn.innerText = "+ 新增品項";
-            addBtn.className = "admin-btn";
-            addBtn.style.marginTop = "10px";
-            addBtn.onclick = () => addItem(sIdx);
-            secDiv.appendChild(addBtn);
+            // 編輯模式
+            div.innerHTML = `
+                <input type="text" class="edit-input" value="${item.name}" onchange="updateData('${sectionKey}', ${index}, 'name', this.value)">
+                <input type="number" class="edit-price" value="${item.price}" onchange="updateData('${sectionKey}', ${index}, 'price', this.value)">
+            `;
+        } else {
+            // 正常模式 (三區統一加減號)
+            div.innerHTML = `
+                <div class="item-info">
+                    <div style="font-weight:700;">🐾 ${item.name}</div>
+                    <div style="font-size:0.8rem; color:#888;">$${item.price} / 單位</div>
+                </div>
+                <div class="stepper">
+                    <button class="step-btn" onclick="changeCount('${sectionKey}', ${index}, -1)" ${count <= 0 ? 'disabled' : ''}>-</button>
+                    <span class="step-num">${count}</span>
+                    <button class="step-btn" onclick="changeCount('${sectionKey}', ${index}, 1)" ${count >= 10 ? 'disabled' : ''}>+</button>
+                </div>
+            `;
         }
-
-        app.appendChild(secDiv);
+        listEl.appendChild(div);
     });
-    calculateTotal();
 }
 
-function updateCount(name, delta) {
-    counts[name] = (counts[name] || 0) + delta;
-    if (counts[name] < 0) counts[name] = 0;
-    render();
+function changeCount(section, index, delta) {
+    let currentCount = quantities[section][index] || 0;
+    let newCount = currentCount + delta;
+    if (newCount >= 0 && newCount <= 10) {
+        quantities[section][index] = newCount;
+        render(); // 重新渲染畫面
+    }
 }
 
-function updateItem(sIdx, iIdx, key, val) {
-    nailData[sIdx].items[iIdx][key] = (key === 'price') ? Number(val) : val;
-    save();
+function updateData(section, index, key, value) {
+    nailData[section][index][key] = (key === 'price') ? Number(value) : value;
+    localStorage.setItem('nailData_final', JSON.stringify(nailData));
 }
 
-function addItem(sIdx) {
-    nailData[sIdx].items.push({ name: "新項目", price: 0 });
-    render();
-    save();
-}
-
-function deleteItem(sIdx, iIdx) {
-    nailData[sIdx].items.splice(iIdx, 1);
-    render();
-    save();
-}
-
-function save() {
-    localStorage.setItem('nailData_Final_Fixed', JSON.stringify(nailData));
-}
-
-function calculateTotal() {
+function calcTotal() {
     let total = 0;
-    nailData.forEach(sec => {
-        sec.items.forEach(item => {
-            total += (item.price * (counts[item.name] || 0));
+    ['basic', 'design', 'addon'].forEach(sec => {
+        quantities[sec].forEach((count, idx) => {
+            if (nailData[sec][idx]) {
+                total += (nailData[sec][idx].price * count);
+            }
         });
     });
     document.getElementById('total-price').innerText = `$${total}`;
 }
 
-document.getElementById('edit-mode-btn').onclick = function() {
+document.getElementById('edit-mode-btn').onclick = () => {
     isEditMode = !isEditMode;
-    this.innerText = isEditMode ? "✅ 完成並退出" : "⚙️ 進入修改價格模式";
+    document.getElementById('edit-mode-btn').innerText = isEditMode ? "✅ 完成並儲存" : "⚙️ 進入/退出修改價格模式";
     render();
 };
 
 document.getElementById('clear-btn').onclick = () => {
-    counts = {};
+    // 重置所有數量為 0
+    quantities = {
+        basic: new Array(nailData.basic.length).fill(0),
+        design: new Array(nailData.design.length).fill(0),
+        addon: new Array(nailData.addon.length).fill(0)
+    };
     render();
 };
 
-// 第一次執行
+// 啟動！
 render();
