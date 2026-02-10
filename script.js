@@ -16,8 +16,7 @@ const defaultData = {
     ]
 };
 
-// 使用 v6 版本確保刷新
-let nailData = JSON.parse(localStorage.getItem('nailData_v6')) || defaultData;
+let nailData = JSON.parse(localStorage.getItem('nailData_v7')) || defaultData;
 let isEditMode = false;
 
 let quantities = {
@@ -42,8 +41,8 @@ function renderSection(elementId, sectionKey) {
         div.className = `item-card ${count > 0 ? 'active' : ''}`;
         if (isEditMode) {
             div.innerHTML = `
-                <input type="text" class="edit-input" value="${item.name}" onchange="updateData('${sectionKey}', ${index}, 'name', this.value)">
-                <input type="number" class="edit-price" value="${item.price}" onchange="updateData('${sectionKey}', ${index}, 'price', this.value)">
+                <input type="text" style="width:55%; padding:8px; border-radius:10px; border:1px solid #ddd;" value="${item.name}" onchange="updateData('${sectionKey}', ${index}, 'name', this.value)">
+                <input type="number" style="width:30%; padding:8px; border-radius:10px; border:1px solid #ddd;" value="${item.price}" onchange="updateData('${sectionKey}', ${index}, 'price', this.value)">
             `;
         } else {
             div.innerHTML = `
@@ -69,7 +68,7 @@ function changeCount(section, index, delta) {
 
 function updateData(section, index, key, value) {
     nailData[section][index][key] = (key === 'price') ? Number(value) : value;
-    localStorage.setItem('nailData_v6', JSON.stringify(nailData));
+    localStorage.setItem('nailData_v7', JSON.stringify(nailData));
 }
 
 function calcTotal() {
@@ -84,7 +83,7 @@ function calcTotal() {
 
 document.getElementById('edit-mode-btn').onclick = () => {
     isEditMode = !isEditMode;
-    document.getElementById('edit-mode-btn').innerText = isEditMode ? "✅ 完成儲存" : "⚙️ 進入修改模式";
+    document.getElementById('edit-mode-btn').innerText = isEditMode ? "✅ 完成儲存" : "⚙️ 進入/退出修改價格模式";
     render();
 };
 

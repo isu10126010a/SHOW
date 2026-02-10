@@ -2,78 +2,118 @@
     --calico-orange: #FFB366;
     --calico-black: #4A342E;
     --calico-cream: #FFF9F2;
-    --soft-gray: #f2f2f2;
+    --calico-white: #FFFFFF;
 }
 
 * { box-sizing: border-box; font-family: 'Zen Maru Gothic', sans-serif; }
 
-body { background-color: var(--calico-cream); color: var(--calico-black); margin: 0; padding-bottom: 120px; display: flex; justify-content: center; }
+body { 
+    background-color: var(--calico-cream); 
+    color: var(--calico-black); 
+    margin: 0; 
+    padding-bottom: 120px; 
+    display: flex; 
+    justify-content: center;
+    position: relative;
+    overflow-x: hidden;
+}
 
-.container { width: 100%; max-width: 480px; padding: 20px; }
+/* 背景貓咪群 - 變清楚了！ */
+.bg-decorations {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    z-index: -1;
+    pointer-events: none;
+}
+.cat-icon {
+    position: absolute;
+    font-size: 2.5rem;
+    opacity: 0.25; /* 提高不透明度，讓牠變清楚 */
+    filter: grayscale(0.2);
+}
+.c1 { top: 5%; left: 5%; transform: rotate(-15deg); }
+.c2 { top: 20%; right: -10px; font-size: 3.5rem; color: var(--calico-orange); }
+.c3 { bottom: 25%; left: -15px; font-size: 3rem; }
+.c4 { top: 50%; right: 10%; opacity: 0.15; }
+.c5 { bottom: 10%; right: 5%; transform: rotate(10deg); }
+.c6 { top: 35%; left: 10%; opacity: 0.2; }
 
-header { text-align: center; margin-bottom: 10px; }
-.main-logo { width: 90px; height: 90px; border-radius: 50%; border: 4px solid white; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+.container { width: 100%; max-width: 450px; padding: 20px; position: relative; }
 
-h1 { font-size: 1.6rem; margin: 5px 0 0; font-weight: 700; }
-.slogan { color: var(--calico-orange); font-size: 0.85rem; font-weight: bold; margin-bottom: 15px; }
+header { text-align: center; margin-bottom: 15px; }
+.main-logo { width: 85px; height: 85px; border-radius: 50%; border: 4px solid white; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
 
-/* 貓店長照片 - 拍立得風格 */
+h1 { font-size: 1.6rem; margin: 10px 0 0; font-weight: 700; color: var(--calico-black); }
+.slogan { color: var(--calico-orange); font-size: 0.85rem; font-weight: bold; margin-bottom: 20px; }
+
+/* 修正照片大小：變身拍立得 */
 .mascot-section {
     display: flex;
     justify-content: center;
-    margin-bottom: 25px;
-    padding: 10px;
+    margin-bottom: 30px;
 }
-
-.photo-frame {
+.polaroid {
     background: white;
-    padding: 12px 12px 30px 12px;
-    border-radius: 5px;
-    box-shadow: 5px 5px 15px rgba(0,0,0,0.1);
-    transform: rotate(-2deg); /* 輕微傾斜更可愛 */
-    max-width: 250px;
-    transition: 0.3s;
+    padding: 12px 12px 35px 12px;
+    border-radius: 4px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+    width: 280px; /* 固定寬度，不讓它爆開 */
+    transform: rotate(-2deg);
+    border: 1px solid #eee;
 }
-
-.photo-frame:hover {
-    transform: rotate(0deg) scale(1.05);
-}
-
 .shop-cat {
     width: 100%;
-    height: auto;
-    border-radius: 3px;
-    display: block;
+    height: 200px; /* 固定高度 */
+    object-fit: cover; /* 裁切合適範圍 */
+    border-radius: 2px;
 }
-
-.photo-caption {
+.caption {
     text-align: center;
-    font-size: 0.9rem;
-    color: var(--calico-black);
+    font-size: 0.95rem;
     margin-top: 15px;
     font-weight: bold;
+    color: #555;
     letter-spacing: 1px;
 }
 
-/* 價格區塊與按鈕 (維持原樣) */
-.price-section { background: white; border-radius: 25px; padding: 15px; margin-bottom: 20px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); }
-.section-title { font-size: 1.1rem; margin-bottom: 12px; border-left: 6.5px solid var(--calico-orange); padding-left: 10px; font-weight: 700; }
+/* 內容區塊 */
+.price-section { 
+    background: rgba(255, 255, 255, 0.9); /* 帶一點點透明，看得到背景貓咪 */
+    border-radius: 25px; padding: 18px; margin-bottom: 20px; 
+    box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+    border: 2px solid white;
+}
+.section-title { font-size: 1.15rem; margin-bottom: 15px; border-left: 6px solid var(--calico-orange); padding-left: 12px; font-weight: 700; }
 
-.item-card { display: flex; justify-content: space-between; align-items: center; padding: 12px 15px; background: #fffdfa; border: 2px solid var(--soft-gray); border-radius: 20px; margin-bottom: 8px; }
-.item-card.active { border-color: var(--calico-orange); background: #fffdf2; }
+.item-card {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 12px 15px; background: #fffdfa; border: 2px solid var(--soft-gray);
+    border-radius: 20px; margin-bottom: 10px;
+}
+.item-card.active { border-color: var(--calico-orange); background: #fff9f2; }
 
+/* 步進器按鈕 */
 .stepper { display: flex; align-items: center; gap: 12px; }
-.step-btn { width: 36px; height: 36px; border-radius: 50%; border: none; background: var(--calico-orange); color: white; font-size: 1.4rem; cursor: pointer; display: flex; align-items: center; justify-content: center; }
-.step-btn:disabled { background: #eee; color: #aaa; }
-.step-num { font-weight: bold; width: 22px; text-align: center; font-size: 1.2rem; }
+.step-btn {
+    width: 38px; height: 38px; border-radius: 50%; border: none;
+    background: var(--calico-orange); color: white; font-size: 1.5rem;
+    cursor: pointer; display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 3px 6px rgba(255, 179, 102, 0.3);
+}
+.step-btn:disabled { background: #eee; color: #aaa; box-shadow: none; }
+.step-num { font-weight: bold; width: 24px; text-align: center; font-size: 1.2rem; }
 
-.edit-input { width: 55%; padding: 8px; border-radius: 10px; border: 1px solid #ddd; }
-.edit-price { width: 30%; padding: 8px; border-radius: 10px; border: 1px solid #ddd; }
-
-.footer-bar { position: fixed; bottom: 0; width: 100%; max-width: 480px; background: var(--calico-black); color: white; padding: 20px; display: flex; justify-content: space-between; align-items: center; border-radius: 30px 30px 0 0; z-index: 100; }
+/* 底部欄 */
+.footer-bar {
+    position: fixed; bottom: 0; width: 100%; max-width: 450px;
+    background: var(--calico-black); color: white; padding: 18px 25px;
+    display: flex; justify-content: space-between; align-items: center;
+    border-radius: 30px 30px 0 0; z-index: 100;
+}
 #total-price { font-size: 2.2rem; color: var(--calico-orange); font-weight: bold; }
 
-.cute-btn { background: white; border: 2px solid var(--calico-black); padding: 10px 18px; border-radius: 20px; cursor: pointer; font-weight: bold; margin-bottom: 15px; width: 100%; }
+.cute-btn { 
+    background: white; border: 2px solid var(--calico-black); padding: 10px; 
+    border-radius: 20px; cursor: pointer; font-weight: bold; margin-bottom: 20px; width: 100%; 
+}
 .reset-btn { background: #555; color: white; border: none; padding: 8px 15px; border-radius: 15px; cursor: pointer; }
-
-.cat-bg { position: fixed; font-size: 5rem; bottom: 100px; left: -20px; opacity: 0.1; z-index: -1; }
