@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>秀 your nails | 美甲計價</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- 引入可愛的中文字體 (奶油圓體感) -->
+    <link href="https://fonts.googleapis.com/css2?family=ZCOOL+KuaiLe&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <!-- 頂部 Logo 與 三花貓 -->
+        <header>
+            <img src="logo.jpg" alt="秀 your nails Logo" class="logo">
+            <h1>秀 your nails 🐾</h1>
+            <p class="subtitle">專屬於妳的指尖溫柔 ✨</p>
+        </header>
+
+        <!-- 計價區域 -->
+        <main>
+            <div class="calculator-card">
+                <div class="card-header">
+                    <h2>🐾 服務價目表</h2>
+                    <button id="edit-btn">⚙️ 進入編輯模式</button>
+                </div>
+                
+                <div id="price-list">
+                    <!-- 品項會由 JS 自動生成 -->
+                </div>
+
+                <div class="total-section">
+                    <p>目前總計：<span id="total-price">$0</span></p>
+                    <button id="reset-btn">清空選取 🧹</button>
+                </div>
+            </div>
+        </main>
+
+        <!-- 裝飾用三花貓插圖 -->
+        <div class="cat-decoration decoration-left">🐱</div>
+        <div class="cat-decoration decoration-right">🐾</div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
