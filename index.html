@@ -3,60 +3,48 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>秀 your nails | 圓滾滾計價</title>
-    <!-- 引入超可愛的圓體字 -->
+    <title>秀 your nails | 專業計價</title>
     <link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="container">
         <header>
-            <div class="logo-area">
-                <img src="logo.jpg" alt="Logo" class="main-logo">
-            </div>
+            <div class="logo-area"><img src="logo.jpg" alt="Logo" class="main-logo"></div>
             <h1>秀 your nails 🐾</h1>
             <p class="slogan">讓指尖像三花貓一樣可愛</p>
         </header>
 
-        <!-- 管理員按鈕 -->
         <div class="admin-controls">
-            <button id="edit-mode-btn" class="cute-btn">🐾 進入/退出修改模式</button>
+            <button id="edit-mode-btn" class="cute-btn">⚙️ 修改品項與價格</button>
         </div>
 
         <main id="app">
-            <!-- 區域一：基礎美甲 -->
             <section class="price-section">
-                <h2 class="section-title">🧡 基礎美甲區</h2>
+                <h2 class="section-title">🧡 基礎美甲 (單選/複選)</h2>
                 <div id="basic-list" class="item-list"></div>
             </section>
 
-            <!-- 區域二：造型設計 -->
             <section class="price-section">
-                <h2 class="section-title">🤍 造型設計區</h2>
+                <h2 class="section-title">🤍 造型設計 (數量選擇)</h2>
                 <div id="design-list" class="item-list"></div>
             </section>
 
-            <!-- 區域三：加價專區 -->
             <section class="price-section addon-section">
-                <h2 class="section-title">🖤 加價專區</h2>
+                <h2 class="section-title">🖤 加價專區 (數量選擇)</h2>
                 <div id="addon-list" class="item-list"></div>
             </section>
         </main>
 
-        <!-- 底部結帳欄 -->
         <footer class="footer-bar">
             <div class="total-info">
-                <span>目前選計：</span>
+                <span>總計：</span>
                 <span id="total-price">$0</span>
             </div>
-            <button id="clear-btn" class="reset-btn">清空 🧹</button>
+            <button id="clear-btn" class="reset-btn">清空重算 🧹</button>
         </footer>
     </div>
-
-    <!-- 背景裝飾貓貓 -->
     <div class="cat-bg">🐈</div>
-    <div class="cat-bg2">🐾</div>
-
     <script src="script.js"></script>
 </body>
 </html>
