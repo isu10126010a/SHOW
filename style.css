@@ -7,9 +7,37 @@
 
 * { box-sizing: border-box; font-family: 'Zen Maru Gothic', sans-serif; }
 
-body { background-color: var(--calico-cream); color: var(--calico-black); margin: 0; padding-bottom: 110px; display: flex; justify-content: center; }
+body { 
+    background-color: var(--calico-cream); 
+    color: var(--calico-black); 
+    margin: 0; 
+    padding-bottom: 110px; 
+    display: flex; 
+    justify-content: center;
+    position: relative; /* 為了讓背景貓咪對準 */
+}
 
-.container { width: 100%; max-width: 480px; padding: 20px; }
+/* --- 修改的部分：背景貓咪陣列 --- */
+body::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1; /* 放在最底層 */
+    
+    /* 這裡定義貓咪與腳印的排列圖案 */
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100'%3E%3Ctext y='40' x='15' font-size='26'%3E🐈%3C/text%3E%3Ctext y='85' x='60' font-size='24'%3E🐾%3C/text%3E%3C/svg%3E");
+    
+    background-repeat: repeat; /* 讓圖案無限重複 */
+    background-size: 120px 120px; /* 調整這個數字可以讓貓咪變密集或稀疏 */
+    opacity: 0.15; /* 透明度 0.15，比之前清楚 */
+    pointer-events: none; /* 讓背景不會擋到滑鼠點擊 */
+}
+/* ---------------------------- */
+
+.container { width: 100%; max-width: 480px; padding: 20px; position: relative; z-index: 1; }
 
 header { text-align: center; margin-bottom: 20px; }
 .main-logo { width: 100px; height: 100px; border-radius: 50%; border: 4px solid white; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
@@ -17,7 +45,13 @@ header { text-align: center; margin-bottom: 20px; }
 h1 { font-size: 1.6rem; margin: 10px 0 0; font-weight: 700; }
 .slogan { color: var(--calico-orange); font-size: 0.85rem; font-weight: bold; }
 
-.price-section { background: white; border-radius: 25px; padding: 15px; margin-bottom: 20px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); }
+.price-section { 
+    background: rgba(255, 255, 255, 0.85); /* 稍微帶點透明度，可以看到後面的貓咪 */
+    border-radius: 25px; 
+    padding: 15px; 
+    margin-bottom: 20px; 
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05); 
+}
 .section-title { font-size: 1.1rem; margin-bottom: 12px; border-left: 6.5px solid var(--calico-orange); padding-left: 10px; font-weight: 700; }
 
 .item-card {
@@ -49,9 +83,8 @@ h1 { font-size: 1.6rem; margin: 10px 0 0; font-weight: 700; }
 }
 #total-price { font-size: 2.2rem; color: var(--calico-orange); font-weight: bold; }
 
-.cute-btn { background: white; border: 2px solid var(--calico-black); padding: 8px 18px; border-radius: 20px; cursor: pointer; font-weight: bold; margin-bottom: 15px; width: 100%; }
-.reset-btn { background: #555; border: none; padding: 8px 15px; border-radius: 15px; color: white; cursor: pointer; }
+.cute-btn { background: white; border: 2px solid var(--calico-black); padding: 8px 18px; border-radius: 20px; cursor: pointer; font-weight: bold; margin-bottom: 15px; width: 100%; font-family: inherit; }
+.reset-btn { background: #555; border: none; padding: 8px 15px; border-radius: 15px; color: white; cursor: pointer; font-family: inherit; }
 
-/* 背景裝飾貓 */
-.cat-bg { position: fixed; font-size: 5rem; bottom: 80px; left: -20px; opacity: 0.1; z-index: -1; }
-.cat-bg2 { position: fixed; font-size: 3rem; top: 120px; right: -10px; opacity: 0.1; z-index: -1; transform: rotate(15deg); }
+/* 原本的貓咪樣式已不需要，刪除或留著空殼皆可 */
+.cat-bg, .cat-bg2 { display: none; }
