@@ -1,98 +1,146 @@
+/* 定義三花貓配色 */
 :root {
-    --primary-pink: #f9d5d3;
-    --dark-brown: #6d4c41;
-    --bg-color: #fffaf0;
+    --cream: #FFF9F2;       /* 奶油白 */
+    --orange: #FFB366;      /* 三花橘 */
+    --dark: #4A342E;        /* 深咖啡 */
+    --soft-pink: #FADADD;   /* 肉墊粉 */
+    --gray: #8E8E8E;        /* 灰貓色 */
 }
 
 body {
-    background-color: var(--bg-color);
-    font-family: 'ZCOOL KuaiLe', cursive, sans-serif;
-    color: var(--dark-brown);
+    background-color: var(--cream);
+    /* 優先使用手寫可愛體，備用圓體 */
+    font-family: 'Mochiiy Pop One', 'Zhi Mang Xing', 'Noto Sans TC', sans-serif;
+    color: var(--dark);
     margin: 0;
     padding: 20px;
+    line-height: 1.6;
 }
 
 .container {
-    max-width: 500px;
+    max-width: 450px;
     margin: 0 auto;
     text-align: center;
+}
+
+/* Logo 加上貓耳裝飾 */
+.logo-wrapper {
     position: relative;
+    display: inline-block;
 }
 
-header .logo {
-    width: 150px;
+.logo {
+    width: 140px;
+    height: 140px;
     border-radius: 50%;
-    margin-bottom: 10px;
-    border: 5px solid var(--primary-pink);
+    border: 6px solid white;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    object-fit: cover;
 }
 
-h1 { font-size: 2.5rem; margin: 10px 0; }
+h1 {
+    font-size: 2.2rem;
+    color: var(--dark);
+    margin: 15px 0 5px 0;
+    letter-spacing: 2px;
+}
 
+.subtitle {
+    color: var(--orange);
+    font-weight: bold;
+    margin-bottom: 30px;
+}
+
+/* 卡片設計 */
 .calculator-card {
     background: white;
-    border-radius: 30px;
-    padding: 20px;
-    box-shadow: 0 10px 20px rgba(0,0,0,0.05);
-    border: 3px dashed var(--primary-pink);
+    border-radius: 40px 40px 15px 15px;
+    padding: 25px;
+    border: 4px solid var(--orange);
+    position: relative;
 }
 
 .card-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    border-bottom: 2px dashed var(--soft-pink);
     margin-bottom: 20px;
+    padding-bottom: 10px;
+}
+
+/* 按鈕樣式 */
+button {
+    font-family: inherit;
+    cursor: pointer;
+    transition: 0.2s;
 }
 
 #edit-btn {
-    background: #eee;
+    background: var(--soft-pink);
     border: none;
-    padding: 5px 10px;
-    border-radius: 10px;
-    cursor: pointer;
+    padding: 8px 12px;
+    border-radius: 15px;
     font-size: 0.8rem;
+    color: var(--dark);
 }
 
+/* 品項清單 */
 .price-item {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 12px;
-    margin: 8px 0;
-    background: #fff9f9;
-    border-radius: 15px;
-    transition: 0.3s;
-    cursor: pointer;
+    padding: 15px;
+    margin: 10px 0;
+    background: var(--cream);
+    border-radius: 20px;
+    border: 2px solid transparent;
 }
 
-.price-item:hover { background: var(--primary-pink); }
-.price-item.selected { background: var(--primary-pink); font-weight: bold; }
+.price-item.selected {
+    background: var(--orange);
+    color: white;
+    transform: scale(1.02);
+}
 
+/* 總計區域 */
 .total-section {
-    margin-top: 25px;
-    border-top: 2px solid var(--primary-pink);
-    padding-top: 15px;
-    font-size: 1.5rem;
+    margin-top: 20px;
+    background: var(--dark);
+    color: white;
+    padding: 20px;
+    border-radius: 20px;
+}
+
+#total-price {
+    font-size: 2.5rem;
+    color: var(--orange);
+    margin: 10px 0;
 }
 
 #reset-btn {
-    background: var(--dark-brown);
+    background: transparent;
+    border: 1px solid white;
     color: white;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 20px;
-    cursor: pointer;
+    padding: 5px 15px;
+    border-radius: 10px;
 }
 
-/* 編輯模式下的樣式 */
-.edit-input { width: 60%; padding: 5px; border-radius: 5px; border: 1px solid #ccc; }
-.edit-price { width: 25%; padding: 5px; border-radius: 5px; border: 1px solid #ccc; }
-
-/* 三花貓裝飾 */
+/* 裝飾物 */
 .cat-decoration {
     position: fixed;
-    font-size: 3rem;
+    font-size: 2.5rem;
     z-index: -1;
-    opacity: 0.6;
+    filter: drop-shadow(2px 2px 0px white);
 }
-.decoration-left { bottom: 20px; left: 20px; }
-.decoration-right { top: 50px; right: 20px; }
+.decoration-1 { bottom: 10%; left: 5%; transform: rotate(-15deg); }
+.decoration-2 { top: 15%; right: 5%; transform: rotate(15deg); }
+.decoration-3 { bottom: 30%; right: 2%; opacity: 0.5; }
+
+/* 編輯輸入框 */
+input {
+    border: 1px solid var(--orange);
+    border-radius: 8px;
+    padding: 5px;
+    font-family: inherit;
+}

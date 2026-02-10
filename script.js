@@ -1,13 +1,10 @@
-// 預設品項
 let defaultItems = [
     { name: "單色光療", price: 800 },
-    { name: "貓眼光療", price: 1000 },
-    { name: "法式指甲", price: 1200 },
-    { name: "卸甲重做", price: 200 },
-    { name: "造型加購", price: 500 }
+    { name: "法式設計", price: 1200 },
+    { name: "精緻卸甲", price: 300 },
+    { name: "保養護理", price: 500 }
 ];
 
-// 從存儲中載入數據
 let items = JSON.parse(localStorage.getItem('nailPrices')) || defaultItems;
 let selectedItems = new Set();
 let isEditMode = false;
@@ -26,47 +23,35 @@ function render() {
 
         if (isEditMode) {
             div.innerHTML = `
-                <input type="text" class="edit-input" value="${item.name}" onchange="updateItem(${index}, 'name', this.value)">
-                <input type="number" class="edit-price" value="${item.price}" onchange="updateItem(${index}, 'price', this.value)">
+                <input type="text" style="width:50%" value="${item.name}" onchange="updateItem(${index}, 'name', this.value)">
+                <input type="number" style="width:25%" value="${item.price}" onchange="updateItem(${index}, 'price', this.value)">
                 <button onclick="removeItem(${index})">❌</button>
             `;
         } else {
-            div.innerHTML = `
-                <span>🐾 ${item.name}</span>
-                <span>$${item.price}</span>
-            `;
-            div.onclick = () => toggleSelect(index);
+            div.innerHTML = `<span>🐾 ${item.name}</span><span>$${item.price}</span>`;
+            div.onclick = () => {
+                if(selectedItems.has(index)) selectedItems.delete(index);
+                else selectedItems.add(index);
+                render();
+            };
         }
-
         priceList.appendChild(div);
         if (selectedItems.has(index)) total += Number(item.price);
     });
 
     if (isEditMode) {
         const addBtn = document.createElement('button');
-        addBtn.innerText = "+ 新增品項";
-        addBtn.onclick = addItem;
-        addBtn.style.width = "100%";
+        addBtn.innerText = "+ 新增服務品項";
+        addBtn.style = "width:100%; padding:10px; margin-top:10px; background:#ddd; border:none; border-radius:10px;";
+        addBtn.onclick = () => { items.push({name:"新服務", price:0}); render(); };
         priceList.appendChild(addBtn);
     }
-
     totalDisplay.innerText = `$${total}`;
-}
-
-function toggleSelect(index) {
-    if (selectedItems.has(index)) selectedItems.delete(index);
-    else selectedItems.add(index);
-    render();
 }
 
 function updateItem(index, key, value) {
     items[index][key] = value;
     save();
-}
-
-function addItem() {
-    items.push({ name: "新服務", price: 0 });
-    render();
 }
 
 function removeItem(index) {
@@ -81,9 +66,9 @@ function save() {
 
 editBtn.onclick = () => {
     isEditMode = !isEditMode;
-    editBtn.innerText = isEditMode ? "✅ 完成編輯" : "⚙️ 進入編輯模式";
-    if (!isEditMode) save();
-    render();
+    editBtn.innerText = isEditMode ? "✅ 儲存修改" : "⚙️ 編輯價格";
+    if (!isEditMode) render();
+    else render();
 };
 
 document.getElementById('reset-btn').onclick = () => {

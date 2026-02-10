@@ -3,42 +3,46 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>秀 your nails | 美甲計價</title>
+    <title>秀 your nails | 專屬計價</title>
+    <!-- 引入更可愛且支援中文的 Google 字體 -->
+    <link href="https://fonts.googleapis.com/css2?family=Zhi+Mang+Xing&family=Noto+Sans+TC:wght@400;700&family=Mochiiy+Pop+One&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
-    <!-- 引入可愛的中文字體 (奶油圓體感) -->
-    <link href="https://fonts.googleapis.com/css2?family=ZCOOL+KuaiLe&display=swap" rel="stylesheet">
 </head>
 <body>
     <div class="container">
-        <!-- 頂部 Logo 與 三花貓 -->
         <header>
-            <img src="logo.jpg" alt="秀 your nails Logo" class="logo">
+            <div class="logo-wrapper">
+                <img src="logo.jpg" alt="秀 your nails Logo" class="logo">
+                <span class="cat-ear-l"></span>
+                <span class="cat-ear-r"></span>
+            </div>
             <h1>秀 your nails 🐾</h1>
-            <p class="subtitle">專屬於妳的指尖溫柔 ✨</p>
+            <p class="subtitle">讓指尖像貓咪一樣迷人 ✨</p>
         </header>
 
-        <!-- 計價區域 -->
         <main>
             <div class="calculator-card">
                 <div class="card-header">
-                    <h2>🐾 服務價目表</h2>
-                    <button id="edit-btn">⚙️ 進入編輯模式</button>
+                    <h2>🐾 服務清單</h2>
+                    <button id="edit-btn">⚙️ 編輯價格</button>
                 </div>
                 
                 <div id="price-list">
-                    <!-- 品項會由 JS 自動生成 -->
+                    <!-- JS 生成內容 -->
                 </div>
 
                 <div class="total-section">
-                    <p>目前總計：<span id="total-price">$0</span></p>
-                    <button id="reset-btn">清空選取 🧹</button>
+                    <p>今日預算總計</p>
+                    <div id="total-price">$0</div>
+                    <button id="reset-btn">全部清空 🧹</button>
                 </div>
             </div>
         </main>
 
-        <!-- 裝飾用三花貓插圖 -->
-        <div class="cat-decoration decoration-left">🐱</div>
-        <div class="cat-decoration decoration-right">🐾</div>
+        <!-- 三花貓裝飾 (Emoji + 顏色) -->
+        <div class="cat-decoration decoration-1">🐈</div>
+        <div class="cat-decoration decoration-2">🐾</div>
+        <div class="cat-decoration decoration-3">🧶</div>
     </div>
 
     <script src="script.js"></script>
