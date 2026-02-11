@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>秀 your nails | 專業計價</title>
+    <title>秀 your nails | 專業計價報價</title>
     <link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
-    <!-- 引入截圖工具庫 -->
-    <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+    <!-- 引入截圖庫 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 </head>
 <body>
     <div class="container">
@@ -18,7 +18,7 @@
         </header>
 
         <div class="admin-controls">
-            <button id="edit-mode-btn" class="cute-btn">⚙️ 修改品項與價格</button>
+            <button id="edit-mode-btn" class="cute-btn">⚙️ 修改品項與價格模式</button>
         </div>
 
         <main id="app">
@@ -30,7 +30,7 @@
                 <h2 class="section-title">🤍 造型設計區</h2>
                 <div id="design-list" class="item-list"></div>
             </section>
-            <section class="price-section addon-section">
+            <section class="price-section">
                 <h2 class="section-title">🖤 加價專區</h2>
                 <div id="addon-list" class="item-list"></div>
             </section>
@@ -39,36 +39,33 @@
         <footer class="footer-bar">
             <div class="total-info">
                 <span id="total-price">$0</span>
-                <!-- 新增：生成報價單按鈕 -->
-                <button id="gen-img-btn" class="gen-btn">生成報價單 📑</button>
+                <button id="gen-img-btn" class="gen-btn">製作報價單 📑</button>
             </div>
             <button id="clear-btn" class="reset-btn">清空 🧹</button>
         </footer>
     </div>
 
-    <!-- 隱藏的報價單樣板 (會被截圖用的) -->
+    <!-- 報價單樣板 (平常隱藏) -->
     <div id="quote-template" class="quote-template">
         <div class="quote-header">
             <img src="logo.jpg" class="quote-logo">
             <h2>秀 your nails</h2>
-            <p>專屬美甲報價單</p>
+            <p>～ 妳的專屬美甲清單 ～</p>
         </div>
-        <div id="quote-items" class="quote-content">
-            <!-- 這裡會由 JS 自動填入選中的內容 -->
-        </div>
+        <div id="quote-items" class="quote-content"></div>
         <div class="quote-footer">
             <p class="quote-total">總計：<span id="quote-total-val"></span></p>
             <p class="quote-date">報價日期：<span id="curr-date"></span></p>
-            <p class="quote-msg">🐾 謝謝妳讓我有機會為妳服務 🐾</p>
+            <p class="quote-msg">🐾 期待為妳打造最美的指尖 🐾</p>
         </div>
     </div>
 
-    <!-- 圖片彈出顯示層 -->
+    <!-- 彈出圖片顯示層 -->
     <div id="image-modal" class="modal">
         <div class="modal-content">
-            <span class="close">&times;</span>
-            <p>✨ 報價單已生成 ✨</p>
-            <p style="font-size: 0.8rem; color: #888;">( 請長按圖片儲存至相簿 )</p>
+            <span class="close-modal">&times;</span>
+            <p style="font-weight: bold; color: #FFB366;">✨ 報價單製作完成 ✨</p>
+            <p style="font-size: 0.8rem; color: #888; margin-bottom: 10px;">( 請長按圖片選擇「儲存圖片」到相簿 )</p>
             <div id="image-result"></div>
         </div>
     </div>

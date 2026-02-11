@@ -1,53 +1,63 @@
-/* 延續原本的 CSS... (這裡只列出新增部分) */
-
-/* 報價單按鈕 */
-.gen-btn {
-    background: var(--calico-orange);
-    color: var(--calico-black);
-    border: none;
-    padding: 6px 12px;
-    border-radius: 12px;
-    font-size: 0.85rem;
-    font-weight: bold;
-    cursor: pointer;
-    margin-left: 10px;
+:root {
+    --calico-orange: #FFB366;
+    --calico-black: #4A342E;
+    --calico-cream: #FFF9F2;
 }
 
-/* 截圖樣板 (平常隱藏在銀幕外面) */
-.quote-template {
-    position: absolute;
-    left: -9999px; /* 移出螢幕外 */
-    width: 400px;
-    background: #FFFDF9;
-    padding: 30px;
-    border: 8px solid #FFB366;
-    border-radius: 20px;
+* { box-sizing: border-box; font-family: 'Zen Maru Gothic', sans-serif; }
+
+body { background-color: var(--calico-cream); margin: 0; padding-bottom: 120px; display: flex; justify-content: center; position: relative; }
+
+/* 貓咪陣列背景 */
+body::before {
+    content: ""; position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100'%3E%3Ctext y='40' x='15' font-size='26'%3E🐈%3C/text%3E%3Ctext y='85' x='60' font-size='24'%3E🐾%3C/text%3E%3C/svg%3E");
+    background-repeat: repeat; background-size: 110px 110px; opacity: 0.15; pointer-events: none;
 }
 
+.container { width: 100%; max-width: 480px; padding: 20px; z-index: 1; }
+
+header { text-align: center; margin-bottom: 15px; }
+.main-logo { width: 90px; height: 90px; border-radius: 50%; border: 4px solid white; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+h1 { font-size: 1.6rem; margin: 5px 0 0; color: var(--calico-black); font-weight: 700; }
+.slogan { color: var(--calico-orange); font-size: 0.85rem; font-weight: bold; }
+
+.price-section { background: rgba(255, 255, 255, 0.88); border-radius: 25px; padding: 15px; margin-bottom: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); }
+.section-title { font-size: 1.1rem; border-left: 6px solid var(--calico-orange); padding-left: 10px; margin-bottom: 12px; }
+
+.item-card { display: flex; justify-content: space-between; align-items: center; padding: 10px 15px; background: #fffdfa; border: 2px solid #eee; border-radius: 18px; margin-bottom: 8px; }
+.item-card.active { border-color: var(--calico-orange); background: #fff9f0; }
+
+.stepper { display: flex; align-items: center; gap: 10px; }
+.step-btn { width: 34px; height: 34px; border-radius: 50%; border: none; background: var(--calico-orange); color: white; font-size: 1.2rem; cursor: pointer; }
+.step-btn:disabled { background: #eee; color: #aaa; }
+.step-num { font-weight: bold; width: 20px; text-align: center; }
+
+/* 底部欄修正 */
+.footer-bar {
+    position: fixed; bottom: 0; left: 50%; transform: translateX(-50%);
+    width: 100%; max-width: 480px; background: var(--calico-black); color: white;
+    padding: 15px 20px 25px 20px; display: flex; justify-content: space-between; align-items: center;
+    border-radius: 30px 30px 0 0; z-index: 1000;
+}
+.total-info { display: flex; align-items: center; gap: 10px; }
+#total-price { font-size: 1.8rem; color: var(--calico-orange); font-weight: bold; }
+
+.gen-btn { background: var(--calico-orange); color: var(--calico-black); border: none; padding: 8px 12px; border-radius: 12px; font-weight: bold; cursor: pointer; font-family: inherit; }
+.reset-btn { background: #555; color: white; border: none; padding: 8px 12px; border-radius: 12px; cursor: pointer; }
+.cute-btn { background: white; border: 2px dashed var(--calico-black); padding: 8px; border-radius: 15px; font-weight: bold; width: 100%; margin-bottom: 15px; cursor: pointer; }
+
+/* 報價單圖片樣板 */
+.quote-template { position: absolute; left: -9999px; width: 350px; background: #FFFDF9; padding: 25px; border: 6px solid #FFB366; border-radius: 20px; }
 .quote-header { text-align: center; border-bottom: 2px dashed #FFB366; padding-bottom: 15px; }
-.quote-logo { width: 70px; border-radius: 50%; }
-.quote-header h2 { margin: 10px 0 0; color: #4A342E; }
-
-.quote-content { margin: 20px 0; min-height: 100px; }
-.q-row { display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid #FFF1E0; }
-
+.quote-logo { width: 60px; border-radius: 50%; }
+.quote-content { margin: 15px 0; }
+.q-row { display: flex; justify-content: space-between; padding: 6px 0; border-bottom: 1px solid #FFF1E0; font-size: 0.9rem; }
 .quote-footer { text-align: center; border-top: 2px dashed #FFB366; padding-top: 15px; }
-.quote-total { font-size: 1.5rem; font-weight: bold; color: #FFB366; margin: 5px 0; }
-.quote-date { font-size: 0.8rem; color: #888; }
-.quote-msg { font-size: 0.9rem; margin-top: 15px; color: #4A342E; }
+.quote-total { font-size: 1.4rem; font-weight: bold; color: #FFB366; }
 
-/* 彈窗樣式 */
-.modal {
-    display: none; position: fixed; z-index: 2000;
-    left: 0; top: 0; width: 100%; height: 100%;
-    background-color: rgba(0,0,0,0.7);
-}
-.modal-content {
-    background-color: white; margin: 10% auto; padding: 20px;
-    width: 85%; max-width: 400px; border-radius: 25px; text-align: center;
-}
-#image-result img { width: 100%; border-radius: 15px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
-.close { float: right; font-size: 28px; font-weight: bold; cursor: pointer; }
-
-/* 修正 footer 對齊 */
-.total-info { display: flex; align-items: center; }
+/* 彈窗 */
+.modal { display: none; position: fixed; z-index: 2000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); }
+.modal-content { background: white; margin: 15% auto; padding: 20px; width: 90%; max-width: 380px; border-radius: 25px; position: relative; text-align: center; }
+#image-result img { width: 100%; border-radius: 15px; }
+.close-modal { position: absolute; right: 20px; top: 10px; font-size: 28px; cursor: pointer; }
